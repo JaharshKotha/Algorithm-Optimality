@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class Solution {
+
+    public static boolean checker(int check)
+        {
+          //System.out.println(check);
+        return (check&(check-1))==0;
+    }
+    public static void main(String[] args) {
+     String a;
+       Scanner sc = new Scanner(System.in);
+        boolean ac [] = new boolean [300];
+        a = sc.nextLine();
+        System.out.println(a);
+        int c=0,check=0,flg=0;
+        for(char ab : a.toCharArray() )
+        {
+            if(ab!=' ')
+                {
+            c=Character.isUpperCase(ab) ? ab-'A': ab - 'a';
+             
+           if((check&(1<<c))>0)
+               {
+            
+             check =check &(~(1<<c)&check);
+             
+           }
+            else
+                {
+            check|=1<<c;
+            }
+            }
+        }
+       
+        if(checker(check))
+            {
+            System.out.println("Permuatation of a palindrome");
+        }
+        else
+            {
+            System.out.println("Not permuatation of a palindrome");
+        }
+    }
+    
+    
+}
