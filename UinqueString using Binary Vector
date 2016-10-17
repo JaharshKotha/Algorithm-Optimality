@@ -1,0 +1,28 @@
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+     String a;
+       Scanner sc = new Scanner(System.in);
+        boolean ac [] = new boolean [300];
+        a = sc.nextLine();
+        int c=0,check=0,flg=0;
+        for(char ab : a.toCharArray() )
+        {
+            c=ab-'a';
+            System.out.println(c+" "+(1<<c));
+           if((check&(1<<c))>0)
+               {
+                System.out.println("Non-unique characters in String");flg=1;
+               break;
+           }
+            check|=1<<c;
+        }
+        if(flg==0)
+            {
+            System.out.println("Unique characters in String");
+        }
+    }
+    
+}
