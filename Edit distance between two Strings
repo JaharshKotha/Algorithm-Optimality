@@ -1,0 +1,52 @@
+import java.util.Scanner;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+            Scanner sc=new Scanner(System.in);
+           String a,b;
+        a=sc.nextLine();
+        b=sc.nextLine();
+        StringBuilder sa = new StringBuilder(a);
+         StringBuilder sb = new StringBuilder(b);
+       char aa[]= a.toCharArray();
+       char bb[]= b.toCharArray();
+       int i=0,j=0,k=0,flg=0;
+        while(k<sa.length())
+            {
+            
+           for(j=0;j<sb.length();j++)
+               {
+               if(sa.charAt(k)==sb.charAt(j))
+                   {
+                   sa.deleteCharAt(k);
+                   sb.deleteCharAt(j);
+               flg=1;
+                  break;
+               }
+               
+          }
+            if(flg==1)
+                   {
+                
+                   flg=0;
+                   k=0;
+               }
+               else
+                   {++k;}
+       
+        }
+     
+        //Length of the largest string gives the edit distance
+             if(sa.length()<2&&sb.length()<2)
+            {
+                System.out.print("One edit distance away");
+            }
+        else
+            {
+            System.out.println("No");
+        }
+       
+    }
+}
