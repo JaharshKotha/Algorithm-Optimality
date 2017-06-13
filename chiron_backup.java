@@ -81,11 +81,13 @@ export class ChironClient {
         for (var i = 0; i < venue_count; i++) {
             var tem: any = data.Venues[i];
             tem.totalAttended = 0;
+            tem.Devices;
 
 
             for (var j = 0; j < tem.events.length; j++) {
                 var tem_event_id: string = tem.events[j];
                 tem_event_id = "3F00529A4638866A";
+                var map_venues ={};
                 var clearsky_url = 'http://presence.clearsky.nonprod-tmaws.io/event/' + tem_event_id;
                 promises.push(fetch(clearsky_url).then(
                     function (response) {
@@ -94,20 +96,36 @@ export class ChironClient {
                                 response.status);
                             return;
                         }
-                         return response.json().then(function (data) {
+                        return response.json().then(function (data) {
                             tem.totalAttended += parseInt(data.totalAttended);
+                            if (tem.Devices != null) {
+                                for (var device_cnt = 0; device_cnt < data.devices.length; device_cnt++) {
+                                tem.Devices.push(data.devices[device_cnt]);
+                                }
+                                console.log("woah!");
+                                console.log(tem.Devices);
+                            }
+                            else {
+                                 for (var device_cnt = 0; device_cnt < data.devices.length; device_cnt++) {
+                                tem.Devices.push(data.devices[device_cnt]);
+                                }
+                                tem.Devices = data.devices;
+                                //console.log(tem.Devices);
 
-                            // console.log(tem);
+                            }
+
+
+
                         })
                             .catch(function (err) {
-                                console.log('Fetching Error :-S', err);
+                                console.log('Error1 :-S', err);
                             });
 
 
                     }
                 )
                     .catch(function (err) {
-                        console.log('Fetch Error :-S', err);
+                        console.log('Error 2 :-S', err);
                     })
                 )
 
@@ -119,8 +137,7 @@ export class ChironClient {
         }
 
         return Promise.all(promises).then(function () {
-            console.log("I'm in ");
-            console.log(data.Venues[0].events);
+
             return data;
         })
     }
@@ -130,7 +147,6 @@ export class ChironClient {
         r = sendRequest(`http://localhost:8082/daySummary?day=2017-05-03`).then((data) => {
 
             var pd = ChironClient.tem(data);
-            //console.log(data);
             return pd;
 
         });
