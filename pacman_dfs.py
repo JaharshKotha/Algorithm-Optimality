@@ -24,30 +24,30 @@ def depthFirstSearch(problem):
 
 
     for i in problem.getSuccessors(start_state):
-        tem = {i[0],i[1]}
-        stack.push(i)
-    
+        tem = [i[0],i[1]]
+        stack.push(tem)
+
 
     while not stack.isEmpty():
         t=stack.pop()
         visited.add(t[0])
-        res.append(t[1])
+
         if (problem.isGoalState(t[0])):
-            print "GOAl"
-            print t[0]
+            res = t[1]
             flg=1
             break
         else:
 
             for j in problem.getSuccessors(t[0]):
                 if j[0] not in visited:
-                    stack.push(j)
+                    ltem = t[1]+","+j[1]
+                    stack.push([j[0],ltem])
 
-
+    final =[]
     if flg==1:
-        print "this is res"
-        print res
-        return res
+        data = res.split(",")
+        for temp in data:
+             final.append(temp)
+        return final
     else:
         return None
-
